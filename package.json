@@ -2,15 +2,20 @@
   "name": "wetube",
   "version": "1.0.0",
   "description": "The best way to watch videos",
-  "main": "index.js",
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/dokilove/wetube-reloaded.git"
+  },
+  "scripts": {
+    "depopo": "node index.js"
   },
   "author": "Hyunjoon Shim<dokilove2@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dokilove/wetube-reloaded/issues"
   },
-  "homepage": "https://github.com/dokilove/wetube-reloaded#readme"
+  "homepage": "https://github.com/dokilove/wetube-reloaded#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
