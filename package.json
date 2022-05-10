@@ -7,7 +7,7 @@
     "url": "git+https://github.com/dokilove/wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "Hyunjoon Shim<dokilove2@gmail.com>",
   "license": "MIT",
