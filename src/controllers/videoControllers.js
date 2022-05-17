@@ -68,9 +68,18 @@ export const deleteVideo = async (req, res) => {
   return res.redirect("/");
 };
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const { keyword } = req.query;
+  let videos = [];
   if (keyword) {
+    videos = await Video.find({
+      title: {
+        $regex: new RegExp(`${keyword}$`, "i"),
+        // `^${keyword}` keyword로 시작하는 단어
+        // `${keyword}$` keyword로 끝나는 단어
+        // https://www.mongodb.com/docs/manual/reference/operator/query/regex/ 참조
+      },
+    });
   }
-  return res.render("search", { pageTitle: "Search" });
+  return res.render("search", { pageTitle: "Search", videos });
 };
