@@ -1,6 +1,7 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
+import { ConnectionStates } from "mongoose";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -72,6 +73,18 @@ export const startGithubLogin = (req, res) => {
   return res.redirect(finalUrl);
 };
 
+export const startKakaoLogin = (req, res) => {
+  const baseUrl = `https://kauth.kakao.com/oauth/authorize`;
+  const config = {
+    client_id: process.env.KK_REST_API_KEY,
+    redirect_uri: process.env.KK_REDIRECT_URI,
+    response_type: "code",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return res.redirect(finalUrl);
+};
+
 export const finishGithubLogin = async (req, res) => {
   const baseUrl = "https://github.com/login/oauth/access_token";
   const config = {
@@ -132,6 +145,94 @@ export const finishGithubLogin = async (req, res) => {
   } else {
     return res.redirect("/login");
   }
+};
+
+export const finishKakaoLogin = async (req, res) => {
+  const baseUrl = `https://kauth.kakao.com/oauth/token`;
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.KK_REST_API_KEY,
+    redirect_uri: process.env.KK_REDIRECT_URI,
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+
+  const tokenRequest = await (
+    await fetch(finalUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded",
+      },
+    })
+  ).json();
+  // console.log("token request : " + JSON.stringify(tokenRequest));
+
+  // return res.send(JSON.stringify(tokenRequest));
+
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = `https://kapi.kakao.com/v2/user/me`;
+    const config = {
+      property_keys:
+        '["kakao_account.profile", "kakao_account.name", "kakao_account.email"]',
+    };
+    const params = new URLSearchParams(config).toString();
+    // console.log("params " + params);
+
+    // console.log(formData.toString());
+    const userData = await (
+      await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-type": "application/x-www-form-urlencoded",
+        },
+        // body: 'property_keys=["kakao_account.email"]',
+      })
+    ).json();
+
+    // console.log(JSON.stringify(userData));
+
+    // return res.send(JSON.stringify(userData));
+
+    const { kakao_account } = userData;
+
+    if (!kakao_account) {
+      return res.redirect("/login");
+      // return res.send(JSON.stringify(kakao_account));
+    }
+
+    if (
+      kakao_account.has_email === true &&
+      kakao_account.is_email_valid === true &&
+      kakao_account.is_email_verified === true
+    ) {
+      const { email } = kakao_account;
+      const { profile } = kakao_account;
+      if (!email || !profile) {
+        return res.redirect("/login");
+      }
+
+      let user = await User.findOne({ email });
+      if (!user) {
+        user = await User.create({
+          avatarUrl: profile.thumbnail_image_url,
+          name: profile.nickname,
+          username: profile.nickname,
+          email: email,
+          password: "",
+          socialOnly: true,
+          location: "",
+        });
+      }
+      req.session.loggedIn = true;
+      req.session.user = user;
+      return res.redirect("/");
+    }
+  }
+
+  return res.redirect("/login");
 };
 
 export const logout = (req, res) => {
