@@ -251,8 +251,6 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
   } = req;
 
-  console.log(req.body);
-
   const emailChanged = email !== req.session.user.email;
   if (emailChanged) {
     const emailExist = await User.exists({ email });
