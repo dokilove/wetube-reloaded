@@ -1,8 +1,8 @@
 .search__form {
+    margin-bottom: 60px;
     display: flex;
-    flex-direction: column;
-    max-width: 320px;
-    margin: 0 auto;
+    align-items: center;
+    position: relative;
     input {
         all: unset;
         padding: 15px 20px;
@@ -12,10 +12,17 @@
         margin-bottom: 5px;
         font-size: 16px;
         color: black;
+        width:90%;
     }
-    input[type="submit"]{
-        background-color: #e0e0e0;
-        text-align: center;
-        padding: 10px;
+    button {
+        all: unset;
+    }
+    button {
+        position: absolute;
+        right: 15px;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        text-align: center; 
+        cursor: pointer;
     }
 }

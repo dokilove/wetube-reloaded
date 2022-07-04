@@ -116,7 +116,7 @@ export const search = async (req, res) => {
         // `${keyword}$` keyword로 끝나는 단어
         // https://www.mongodb.com/docs/manual/reference/operator/query/regex/ 참조
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
 };
