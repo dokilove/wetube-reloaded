@@ -3,10 +3,13 @@ extends base
 block content 
     div#videoContainer
         video(src="/"+video.fileUrl)
+        div#playIconCenter.videoContainer__playIconTray
+            span.videoContainer__playIconCenter
+                i.fas.fa-play
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn
-                    i.fas.fa-play
+                    i(id="playBtn").fas.fa-play
                 div.videoControls__time
                     span#currentTime 00:00
                     span  / 

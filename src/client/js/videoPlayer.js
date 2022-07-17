@@ -11,6 +11,7 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
+const playIconCenter = document.getElementById("playIconCenter");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -26,7 +27,15 @@ const handlePlayClick = (e) => {
     video.pause();
   }
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
+
+  console.log(e.target.id);
+  if (e.target.id !== "playBtn") {
+    playIconCenter.classList.add("showingIcon");
+    setTimeout(hideCenterIcon, 200);
+  }
 };
+
+const hideCenterIcon = () => playIconCenter.classList.remove("showingIcon");
 
 const handleMute = (e) => {
   if (video.muted) {
@@ -105,6 +114,8 @@ const handleMouseLeave = () => {
 };
 
 playBtn.addEventListener("click", handlePlayClick);
+video.addEventListener("click", handlePlayClick);
+playIconCenter.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
