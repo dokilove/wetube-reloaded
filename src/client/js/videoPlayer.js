@@ -11,7 +11,8 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
-const playIconCenter = document.getElementById("playIconCenter");
+const playBtnFull = document.getElementById("playBtnFull");
+const playBtnFullIcon = playBtnFull.querySelector("i");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -28,14 +29,14 @@ const handlePlayClick = (e) => {
   }
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 
-  console.log(e.target.id);
   if (e.target.id !== "playBtn") {
-    playIconCenter.classList.add("showingIcon");
+    playBtnFullIcon.classList = !video.paused ? "fas fa-play" : "fas fa-pause";
+    playBtnFull.classList.add("showingIcon");
     setTimeout(hideCenterIcon, 200);
   }
 };
 
-const hideCenterIcon = () => playIconCenter.classList.remove("showingIcon");
+const hideCenterIcon = () => playBtnFull.classList.remove("showingIcon");
 
 const handleMute = (e) => {
   if (video.muted) {
@@ -115,7 +116,7 @@ const handleMouseLeave = () => {
 
 playBtn.addEventListener("click", handlePlayClick);
 video.addEventListener("click", handlePlayClick);
-playIconCenter.addEventListener("click", handlePlayClick);
+playBtnFull.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);

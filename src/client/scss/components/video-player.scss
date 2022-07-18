@@ -50,17 +50,12 @@
             }
         }
     }
-    .videoContainer__playIconTray{
+    .videoContainer__playBtnFullParent{
         display: flex;
         position: absolute;
         left: 50%;
         top: 50%;
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
-        &.showingIcon{
-            opacity: 1;
-        }
-        .videoContainer__playIconCenter{
+        .videoContainer__playBtnFull{
             position: relative;
             display: flex;
             width: 80px;
@@ -70,10 +65,17 @@
             border-radius: 50%;
             align-items: center;
             justify-content: center;
-            background-color: black;
+            background-color: black;      
+    
             i {
                 color: white;
                 font-size: 30px;
+            }
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+            &.showingIcon{
+                opacity: 1;
+                transform: scale(1.5);
             }
         }
     } 
