@@ -16,6 +16,7 @@ const playBtnFullIcon = playBtnFull.querySelector("i");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
+let controlsCenterBtnTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
@@ -31,8 +32,14 @@ const handlePlayClick = (e) => {
 
   if (e.target.id !== "playBtn") {
     playBtnFullIcon.classList = !video.paused ? "fas fa-play" : "fas fa-pause";
+
+    if (controlsCenterBtnTimeout) {
+      clearTimeout(controlsCenterBtnTimeout);
+      controlsCenterBtnTimeout = null;
+    }
+
     playBtnFull.classList.add("showingIcon");
-    setTimeout(hideCenterIcon, 200);
+    controlsCenterBtnTimeout = setTimeout(hideCenterIcon, 300);
   }
 };
 

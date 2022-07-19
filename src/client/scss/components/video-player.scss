@@ -7,7 +7,7 @@
     .videoControls{
         color: #f0f0f0;
         opacity: 0;
-        transition: opacity 0.5s ease-in-out;
+        transition: opacity 0.1s linear;
         &.showing{
             opacity: 1;
         }
@@ -57,22 +57,26 @@
         top: 50%;
         .videoContainer__playBtnFull{
             position: relative;
-            display: flex;
-            width: 80px;
-            height: 80px;
             left: -40px;
             top: -40px;
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            background-color: black;      
     
-            i {
-                color: white;
-                font-size: 30px;
+            .videoContainer__playBtnBG{
+                display: flex;
+                width: 80px;
+                height: 80px;
+                align-items: center;
+                justify-content: center;  
+                
+                border-radius: 50%;
+                background-color: rgba($color: (#000000), $alpha: 0.5);
+                
+                i {
+                    color: white;
+                    font-size: 30px;
+                }
             }
             opacity: 0;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.42s ease-in-out;
             &.showingIcon{
                 opacity: 1;
                 transform: scale(1.5);
