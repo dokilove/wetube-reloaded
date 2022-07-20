@@ -7,7 +7,7 @@
     .videoControls{
         color: #f0f0f0;
         opacity: 0;
-        transition: opacity 0.1s linear;
+        transition: opacity 0.1s ease-in-out;
         &.showing{
             opacity: 1;
         }
@@ -50,17 +50,17 @@
             }
         }
     }
-    .videoContainer__playBtnFullParent{
+    .videoContainer__videoBtnParent{
         display: flex;
         position: absolute;
         left: 50%;
         top: 50%;
-        .videoContainer__playBtnFull{
+        .videoContainer__videoBtn{
             position: relative;
             left: -40px;
             top: -40px;
     
-            .videoContainer__playBtnBG{
+            .videoContainer__centerIconBG{
                 display: flex;
                 width: 80px;
                 height: 80px;
@@ -76,8 +76,8 @@
                 }
             }
             opacity: 0;
-            transition: all 0.42s ease-in-out;
-            &.showingIcon{
+            transition: all 0.2s linear;
+            &.showingCenterIcon{
                 opacity: 1;
                 transform: scale(1.5);
             }

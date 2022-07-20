@@ -11,8 +11,8 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
-const playBtnFull = document.getElementById("playBtnFull");
-const playBtnFullIcon = playBtnFull.querySelector("i");
+const videoBtn = document.getElementById("videoBtn");
+const videoBtnIcon = videoBtn.querySelector("i");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -30,20 +30,25 @@ const handlePlayClick = (e) => {
   }
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 
-  if (e.target.id !== "playBtn") {
-    playBtnFullIcon.classList = !video.paused ? "fas fa-play" : "fas fa-pause";
-
-    if (controlsCenterBtnTimeout) {
-      clearTimeout(controlsCenterBtnTimeout);
-      controlsCenterBtnTimeout = null;
-    }
-
-    playBtnFull.classList.add("showingIcon");
-    controlsCenterBtnTimeout = setTimeout(hideCenterIcon, 300);
+  if (e === undefined || e.target.id !== "playBtn") {
+    showingCenterIcon();
   }
 };
 
-const hideCenterIcon = () => playBtnFull.classList.remove("showingIcon");
+const showingCenterIcon = () => {
+  videoBtnIcon.classList = !video.paused ? "fas fa-play" : "fas fa-pause";
+  if (controlsCenterBtnTimeout) {
+    clearTimeout(controlsCenterBtnTimeout);
+    controlsCenterBtnTimeout = null;
+  }
+
+  videoBtn.classList.add("showingCenterIcon");
+  controlsCenterBtnTimeout = setTimeout(hideCenterIcon, 200);
+
+  handleMouseMove();
+};
+
+const hideCenterIcon = () => videoBtn.classList.remove("showingCenterIcon");
 
 const handleMute = (e) => {
   if (video.muted) {
@@ -121,14 +126,24 @@ const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 
+const handleKeyboardEvent = (event) => {
+  const { code } = event;
+  if (code === "Space") {
+    handlePlayClick();
+  } else if (code === "KeyF") {
+    handleFullscreen();
+  }
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 video.addEventListener("click", handlePlayClick);
-playBtnFull.addEventListener("click", handlePlayClick);
+videoBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", habndleTimeupdate);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
-video.addEventListener("mousemove", handleMouseMove);
-video.addEventListener("mouseleave", handleMouseLeave);
+videoContainer.addEventListener("mousemove", handleMouseMove);
+videoContainer.addEventListener("mouseleave", handleMouseLeave);
+window.addEventListener("keydown", handleKeyboardEvent);
