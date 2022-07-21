@@ -76,10 +76,24 @@
                 }
             }
             opacity: 0;
-            transition: all 0.2s linear;
+            transition: transform 0.5s linear;
             &.showingCenterIcon{
-                opacity: 1;
-                transform: scale(1.5);
+                opacity: 0;
+                animation: opacity-anim 0.5s;
+                transform: scale(2);
+
+                @keyframes opacity-anim {
+                    0%{
+                        opacity: 0;
+                    }
+                    50%{
+                        opacity: 1;
+                    }
+                    100%{
+                        opacity: 0;
+                    }
+                    
+                }
             }
         }
     } 

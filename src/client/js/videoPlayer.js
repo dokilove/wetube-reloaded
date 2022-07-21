@@ -43,7 +43,7 @@ const showingCenterIcon = () => {
   }
 
   videoBtn.classList.add("showingCenterIcon");
-  controlsCenterBtnTimeout = setTimeout(hideCenterIcon, 200);
+  controlsCenterBtnTimeout = setTimeout(hideCenterIcon, 500);
 
   handleMouseMove();
 };
