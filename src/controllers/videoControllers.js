@@ -31,6 +31,7 @@ export const getEdit = async (req, res) => {
   }
   // console.log(typeof video.owner, typeof _id);
   if (String(video.owner) !== String(_id)) {
+    req.flash("error", "You are not the owner of the video.");
     return res.status(403).redirect("/");
   }
 
