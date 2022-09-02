@@ -157,4 +157,4 @@ timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
-document.addEventListener("keydown", handleKeyboardEvent);
+videoContainer.addEventListener("keydown", handleKeyboardEvent);
