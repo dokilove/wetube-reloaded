@@ -29,6 +29,7 @@ app.use(logger);
 // form의 value를 자바스크립트 형식으로 먼저 변환시켜야하기 때문에
 // 우리가 쓰는 라우터보다 먼저 적용해야 한다
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(
   session({
