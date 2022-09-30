@@ -1,6 +1,7 @@
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 import User from "../models/User";
+import { async } from "regenerator-runtime";
 
 // Video.find({}, (error, videos) => {});
 
@@ -14,8 +15,15 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner").populate("comments");
-  console.log(video);
+  const video = await Video.findById(id)
+    .populate("owner")
+    .populate({
+      path: "comments",
+      populate: { path: "owner" },
+    });
+
+  //console.log(video.comments);
+
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
@@ -153,5 +161,29 @@ export const createComment = async (req, res) => {
   });
   video.comments.push(comment._id);
   video.save();
-  return res.status(201).json({ newCommentId: comment._id });
+  return res.status(201).json({
+    newCommentId: comment._id,
+    newCommentCreatedAt: comment.createdAt,
+    ownerName: user.username,
+    ownerAvatar: user.avatarUrl,
+  });
+};
+
+export const deleteComment = async (req, res) => {
+  const { id } = req.params;
+
+  const comment = await Comment.findById(id).populate("video");
+
+  if (String(req.session.user._id) !== String(comment.owner)) {
+    console.log("wrong uesr ");
+    return res.sendStatus(404);
+  }
+
+  const video = comment.video;
+  comment.remove();
+
+  video.comments = video.comments.filter((e) => String(e) !== String(id));
+  video.save();
+
+  return res.sendStatus(201);
 };

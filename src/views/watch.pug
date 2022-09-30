@@ -26,7 +26,7 @@ block content
     .video__data
         p.video__title=video.title
         small.video__owner Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
+            a(href=`/users/${video.owner._id}`)=video.owner.username
         small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year:'numeric', month:'long', day:'numeric'})
         if String(video.owner._id) === String(loggedInUser._id)
             a(href=`${video.id}/edit`) Edit Video &rarr;
@@ -42,9 +42,14 @@ block content
         ul
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)
-                    i.fas.fa-comment
-                    span   #{comment.text}
-                    span  ❌
+                    div.comment__userInfo
+                        img.comment__userAvatar(src="/" + comment.owner.avatarUrl)
+                        span.comment__userName #{comment.owner.username}
+                        span.comment__date  #{comment.createdAt}
+                    div
+                        span.comment__text #{comment.text}
+                        if String(comment.owner._id) === String(loggedInUser._id)
+                            span.delete__comment ❌
 block scripts
     script(src="/static/js/videoPlayer.js")
     if loggedIn
