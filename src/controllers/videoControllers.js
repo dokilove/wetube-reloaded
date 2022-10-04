@@ -175,7 +175,7 @@ export const deleteComment = async (req, res) => {
   const comment = await Comment.findById(id).populate("video");
 
   if (String(req.session.user._id) !== String(comment.owner)) {
-    console.log("wrong uesr ");
+    // console.log("wrong uesr ");
     return res.sendStatus(404);
   }
 
