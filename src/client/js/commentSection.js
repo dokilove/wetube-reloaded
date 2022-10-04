@@ -3,7 +3,6 @@ const form = document.getElementById("commentForm");
 const comments = document.getElementsByClassName("video__comment");
 
 const addComment = (text, newCommentInfo) => {
-  console.log(newCommentInfo);
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.className = "video__comment";
