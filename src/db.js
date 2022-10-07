@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 mongoose.connect(process.env.DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
   // useFindAndModify 관련 warning이 뜨면 처리
   // #6.23 초반부 참조
   //   useFindAndModify: false,
