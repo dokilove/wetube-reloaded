@@ -20,9 +20,9 @@ header
                         else 
                             if loggedInUser.avatarUrl
                                 if loggedInUser.avatarUrl.includes("github")
-                                    img.header__avatar(src=loggedInUser.avatarUrl crossorigin="anonymous")
+                                    img.header__avatar(src=loggedInUser.avatarUrl crossorigin="Anonymous")
                                 else
-                                    img.header__avatar(src=loggedInUser.avatarUrl crossorigin="anonymous")
+                                    img.header__avatar(src=loggedInUser.avatarUrl crossorigin="Anonymous")
             else
                 li 
                     a(href="/login") Login

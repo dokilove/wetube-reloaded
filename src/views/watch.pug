@@ -2,7 +2,7 @@ extends base
 
 block content 
     div#videoContainer(data-id=video._id, tabindex='0')
-        video(src=video.fileUrl crossorigin="anonymous") 
+        video(src=video.fileUrl crossorigin="Anonymous") 
         div.videoContainer__videoBtnParent
             span#videoBtn.videoContainer__videoBtn
                 span.videoContainer__centerIconBG
@@ -43,7 +43,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)
                     div.comment__userInfo
-                        img.comment__userAvatar(src="/" + comment.owner.avatarUrl)
+                        img.comment__userAvatar(src=comment.owner.avatarUrl crossorigin="Anonymous")
                         span.comment__userName #{comment.owner.username}
                         span.comment__date  #{comment.createdAt}
                     div
