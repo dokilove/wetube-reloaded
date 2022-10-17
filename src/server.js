@@ -20,12 +20,13 @@ app.set("views", process.cwd() + "/src/views");
 
 //ffmpeg 관련 에러 해결
 app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-origin",
-    "https://wetube-dokilove.herokuapp.com"
-  );
+  // res.header(
+  //   "Access-Control-Allow-origin",
+  //   "https://wetube-dokilove.herokuapp.com"
+  // );
   res.header("Cross-Origin-Embedder-Policy", "credentialless");
   res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header("Cross-Origin-Resource-Policy", "cross-origin");
   next();
 });
 
