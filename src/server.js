@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-origin",
     "https://wetube-dokilove.herokuapp.com"
   );
-  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Embedder-Policy", "credentialless");
   res.header("Cross-Origin-Opener-Policy", "same-origin");
   next();
 });
