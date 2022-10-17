@@ -43,7 +43,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id)
                     div.comment__userInfo
-                        img.comment__userAvatar(src=comment.owner.avatarUrl crossorigin="Anonymous")
+                        img.comment__userAvatar(src=comment.owner.avatarUrl)
                         span.comment__userName #{comment.owner.username}
                         span.comment__date  #{comment.createdAt}
                     div
