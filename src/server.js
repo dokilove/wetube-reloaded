@@ -22,7 +22,7 @@ app.set("views", process.cwd() + "/src/views");
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-origin",
-    "https://wetube-dokilove.s3.ap-northeast-2.amazonaws.com/"
+    "https://wetube-dokilove.herokuapp.com"
   );
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
   res.header("Cross-Origin-Opener-Policy", "same-origin");
