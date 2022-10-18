@@ -82,9 +82,12 @@ const formatTime = (seconds) =>
   new Date(seconds * 1000).toISOString().substring(14, 19);
 
 const handleLoadedMetadata = () => {
-  console.log("loaded meta data " + video.duration);
-  totalTime.innerText = formatTime(Math.floor(video.duration));
-  timeline.max = Math.floor(video.duration);
+  if (video === null || video.duration === null) {
+    totalTime.innerText = formatTime(Math.floor(video.duration));
+    timeline.max = Math.floor(video.duration);
+  } else {
+    console.log("loaded meta data " + video.duration);
+  }
 };
 
 const habndleTimeupdate = () => {
@@ -151,7 +154,7 @@ video.addEventListener("click", handlePlayClick);
 videoBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("canplay", handleLoadedMetadata);
+video.addEventListener("progress", handleLoadedMetadata);
 video.addEventListener("timeupdate", habndleTimeupdate);
 video.addEventListener("ended", handleEnded);
 timeline.addEventListener("input", handleTimelineChange);
