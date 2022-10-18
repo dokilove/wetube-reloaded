@@ -19,7 +19,6 @@ let controlsMovementTimeout = null;
 let controlsCenterBtnTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
-video.autoplay = true;
 
 const handlePlayClick = (e) => {
   // if the video is playing, pause it
@@ -155,6 +154,7 @@ videoBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("canplay", handleLoadedMetadata);
+handleLoadedMetadata();
 video.addEventListener("timeupdate", habndleTimeupdate);
 video.addEventListener("ended", handleEnded);
 timeline.addEventListener("input", handleTimelineChange);
