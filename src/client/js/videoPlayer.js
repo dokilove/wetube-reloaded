@@ -82,11 +82,10 @@ const formatTime = (seconds) =>
   new Date(seconds * 1000).toISOString().substring(14, 19);
 
 const handleLoadedMetadata = () => {
-  if (video === null || video.duration === null) {
+  if (video !== null || video.duration !== null) {
+    console.log("loaded meta data " + video.duration);
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
-  } else {
-    console.log("loaded meta data " + video.duration);
   }
 };
 
