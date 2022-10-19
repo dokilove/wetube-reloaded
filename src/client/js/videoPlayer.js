@@ -83,7 +83,6 @@ const formatTime = (seconds) =>
 
 const handleLoadedMetadata = () => {
   if (video !== null || video.duration !== null) {
-    console.log("loaded meta data " + video.duration);
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
   }
